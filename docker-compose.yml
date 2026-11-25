@@ -18,7 +18,7 @@ services:
       DB_PASSWORD: Admin@123
 
       JWT_SECRET: hkhsaugdiuegiufgiywe77t47
-      ADMIN_EMAILS: your-email@example.com
+      ADMIN_EMAILS: haiderali71200@gmail.com
 
     depends_on:
       mysql:
