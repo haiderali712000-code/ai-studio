@@ -15,7 +15,7 @@ services:
       DB_PORT: 3306
       DB_NAME: ai_studio
       DB_USER: aistudio_user
-      DB_PASSWORD: Admin@123
+      DB_PASSWORD:
 
       JWT_SECRET: hkhsaugdiuegiufgiywe77t47
       ADMIN_EMAILS: haiderali71200@gmail.com
