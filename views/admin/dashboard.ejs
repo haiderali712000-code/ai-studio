@@ -1,0 +1,21 @@
+<%- include('../partials/shell-start') %>
+<header class="page-head"><h1>Admin</h1></header>
+<%- include('_nav') %>
+<section class="stats">
+  <div class="stat"><strong><%= stats.users %></strong><span>Users</span></div>
+  <div class="stat"><strong><%= stats.newUsers %></strong><span>New this week</span></div>
+  <div class="stat"><strong><%= stats.jobs %></strong><span>Videos analysed</span></div>
+  <div class="stat"><strong><%= stats.jobsToday %></strong><span>Last 24 hours</span></div>
+  <div class="stat"><strong><%= stats.failed %></strong><span>Failed jobs</span></div>
+  <div class="stat"><strong><%= stats.credits %></strong><span>Credits held by users</span></div>
+</section>
+<div class="two-col">
+  <section class="panel"><h2>Newest users</h2>
+    <ul class="rows"><% recentUsers.forEach(function (u) { %><li><span><%= u.name %> <small class="muted"><%= u.email %></small></span><time><%= new Date(u.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) %></time></li><% }) %></ul>
+  </section>
+  <section class="panel"><h2>Latest jobs</h2>
+    <ul class="rows"><% recentJobs.forEach(function (j) { %><li><span><%= j.title || 'Untitled' %> <small class="muted"><%= j.email %></small></span><span class="status <%= j.status %>"><%= j.status %></span></li><% }) %></ul>
+  </section>
+</div>
+<%- include('../partials/shell-end') %>
+<%- include('../partials/foot') %>

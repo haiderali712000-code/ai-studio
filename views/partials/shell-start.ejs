@@ -1,0 +1,33 @@
+<%- include('head') %>
+<body class="app">
+<header class="topbar">
+  <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="side" data-nav-toggle><span></span><span></span><span></span></button>
+  <a class="brand" href="/"><span class="mark" aria-hidden="true"></span><%= appName %></a>
+  <a class="credits-chip" href="/billing"><strong><%= user.credits %></strong> credits</a>
+</header>
+<div class="scrim" data-nav-close></div>
+<div class="shell">
+  <aside class="side" id="side">
+    <a class="brand brand-light" href="/"><span class="mark" aria-hidden="true"></span><%= appName %></a>
+    <nav class="side-nav" aria-label="Studio">
+      <a href="/" class="<%= active === 'home' ? 'on' : '' %>">Home</a>
+      <a href="/dashboard" class="<%= active === 'dashboard' ? 'on' : '' %>">Dashboard</a>
+      <a href="/tools/clips" class="<%= active === 'clips' ? 'on' : '' %>">Clip finder</a>
+      <% if (videoEnabled) { %><a href="/tools/video" class="<%= active === 'video' ? 'on' : '' %>">Video maker</a><% } %>
+      <% if (downloaderEnabled) { %><a href="/tools/download" class="<%= active === 'download' ? 'on' : '' %>">Downloader</a><% } %>
+      <% if (handEnabled) { %><a href="/tools/handwriting" class="<%= active === 'handwriting' ? 'on' : '' %>">Handwriting</a><% } %>
+      <% if (ttsEnabled) { %><a href="/tools/voice" class="<%= active === 'voice' ? 'on' : '' %>">Voiceover</a><% } %>
+      <a href="/jobs" class="<%= active === 'history' ? 'on' : '' %>">History</a>
+      <a href="/billing" class="<%= active === 'billing' ? 'on' : '' %>">Billing</a>
+      <% if (user.role === 'admin') { %><a href="/admin" class="<%= active === 'admin' ? 'on' : '' %>">Admin</a><% } %>
+    </nav>
+    <div class="side-foot">
+      <a class="credits-pill" href="/billing"><strong><%= user.credits %></strong> credits</a>
+      <div class="who">
+        <% if (user.avatar) { %><img src="<%= user.avatar %>" alt="" width="28" height="28" referrerpolicy="no-referrer"><% } else { %><span class="avatar"><%= user.name.charAt(0).toUpperCase() %></span><% } %>
+        <span class="who-name"><%= user.name %></span>
+      </div>
+      <form method="post" action="/logout"><button class="link-btn" type="submit">Log out</button></form>
+    </div>
+  </aside>
+  <main class="main">

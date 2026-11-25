@@ -1,0 +1,33 @@
+<%- include('partials/shell-start') %>
+<header class="page-head">
+  <h1>Welcome back, <%= user.name.split(' ')[0] %></h1>
+  <a class="btn btn-primary" href="/tools/clips">Find clips in a video</a>
+</header>
+
+<section class="panel">
+  <h2>Tools</h2>
+  <div class="tool-grid compact">
+    <% features.forEach(function (f) { %>
+      <% if (f.status === 'live') { %>
+        <a class="tool live" href="<%= f.href %>"><h3><%= f.name %></h3><p><%= f.desc %></p><span class="tag live"><%= f.cost ? f.cost + (f.cost > 1 ? ' credits' : ' credit') + ' per use' : 'Free' %></span></a>
+      <% } else { %>
+        <article class="tool soon"><h3><%= f.name %></h3><p><%= f.desc %></p><span class="tag soon">Coming soon</span></article>
+      <% } %>
+    <% }) %>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Recent videos</h2><a href="/jobs">See all</a></div>
+  <% if (!recent.length) { %>
+    <p class="empty">No videos yet. <a href="/tools/clips">Paste your first YouTube link</a> to see the best clips.</p>
+  <% } else { %>
+    <ul class="rows">
+      <% recent.forEach(function (j) { %>
+        <li><a href="/jobs/<%= j.id %>"><%= j.title || 'Untitled video' %></a><span class="status <%= j.status %>"><%= j.status %></span><time><%= new Date(j.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) %></time></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

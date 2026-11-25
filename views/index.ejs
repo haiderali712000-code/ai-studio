@@ -1,0 +1,82 @@
+<%- include('partials/head') %>
+<body>
+<%- include('partials/site-header') %>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Paste a YouTube link. Get the moments worth posting.</h1>
+      <p class="lead"><%= appName %> reads the video, ranks the strongest moments and hands you start and end times, a title and an opening hook for each one.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="<%= user ? '/tools/clips' : '/signup' %>"><%= user ? 'Open the clip finder' : 'Find my first clips' %></a>
+        <span class="muted">Free credits on sign-up</span>
+      </div>
+    </div>
+    <div class="reel" data-tilt="6" data-demo aria-hidden="true">
+      <div class="reel-url"><span id="demo-url">youtube.com/watch?v=7Kq3xR2mLpA</span><i class="caret"></i></div>
+      <div class="reel-top"><span class="reel-title">How I built a business in 90 days</span><span class="reel-len">48:12</span></div>
+      <div class="reel-bar">
+        <span class="scan"></span>
+        <span class="seg" style="--l:6%;--w:3.5%"></span>
+        <span class="seg" style="--l:22%;--w:3%"></span>
+        <span class="seg hot" style="--l:41%;--w:4%"></span>
+        <span class="seg" style="--l:63%;--w:3%"></span>
+        <span class="seg" style="--l:84%;--w:3.5%"></span>
+      </div>
+      <div class="reel-clips">
+        <div class="reel-clip hot"><b>19:48 to 20:34</b><span>The mistake that cost me my first client</span><i data-score="94">94</i></div>
+        <div class="reel-clip"><b>03:02 to 03:41</b><span>Why I stopped answering email before noon</span><i data-score="88">88</i></div>
+        <div class="reel-clip"><b>40:15 to 41:02</b><span>The pricing change that doubled revenue</span><i data-score="81">81</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <h2>From link to clips in three steps</h2>
+    <ol class="steps">
+      <li><h3>Paste the link</h3><p>Any public YouTube video with captions. Pick how many clips and how long they should be.</p></li>
+      <li><h3>We rank the moments</h3><p>The transcript is scored for hooks, stories and standalone value. Intros and filler drop out.</p></li>
+      <li><h3>Preview and publish</h3><p>Play each clip right on the page, copy the timestamps and cut them in your editor.</p></li>
+    </ol>
+  </section>
+
+  <section class="section" id="tools">
+    <h2><%= user ? 'Your tools' : 'The studio' %></h2>
+    <p class="muted section-sub">Tap a tool to open it. The rest are on the way.</p>
+    <div class="tool-grid">
+      <% features.forEach(function (f) { %>
+        <% if (f.status === 'live') { %>
+          <a class="tool live" href="<%= f.href %>" data-tilt="3">
+            <h3><%= f.name %></h3>
+            <p><%= f.desc %></p>
+            <span class="tag live"><%= f.cost ? f.cost + (f.cost > 1 ? ' credits' : ' credit') + ' per use' : 'Free' %></span>
+          </a>
+        <% } else { %>
+          <article class="tool soon" data-tilt="3">
+            <h3><%= f.name %></h3>
+            <p><%= f.desc %></p>
+            <span class="tag soon">Coming soon</span>
+          </article>
+        <% } %>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <h2>Pay for what you use</h2>
+    <p class="muted section-sub">Credits pay for each use of a tool.</p>
+    <div class="plan-grid">
+      <% plans.forEach(function (p) { %>
+        <article class="plan <%= p.featured ? 'featured' : '' %>" data-tilt="3">
+          <h3><%= p.name %></h3>
+          <p class="price"><%= p.price ? '$' + p.price : '$0' %></p>
+          <p class="plan-credits"><%= p.credits ? p.credits + ' credits' : 'Starter credits' %></p>
+          <p class="muted"><%= p.note %></p>
+          <a class="btn <%= p.featured ? 'btn-primary' : 'btn-ghost' %>" href="/signup">Get started</a>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><span>&copy; <%= new Date().getFullYear() %> <%= appName %></span><span><% if (user) { %><a href="/dashboard">Dashboard</a><% } else { %><a href="/login">Log in</a><% } %></span></footer>
+<script src="/public/js/fx.js"></script>
+<%- include('partials/foot') %>

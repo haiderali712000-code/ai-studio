@@ -1,0 +1,34 @@
+<%- include('partials/shell-start') %>
+<header class="page-head">
+  <div>
+    <a class="back" href="/jobs">History</a>
+    <h1 id="job-title"><%= job.title || 'Your video' %></h1>
+  </div>
+  <div class="head-actions" id="head-actions" hidden>
+    <a class="btn btn-primary" id="dl-btn" href="/api/video/<%= job.id %>/download">Download MP4</a>
+  </div>
+</header>
+
+<div id="job-root" data-job-id="<%= job.id %>">
+  <section class="panel progress wide" id="progress">
+    <div class="scan-track" aria-hidden="true"><span class="scan-head"></span></div>
+    <p id="stage" class="muted">Starting</p>
+    <p class="muted small-note">This usually takes a few minutes. You can leave this page and come back from History.</p>
+    <div class="game" aria-hidden="true">
+      <p class="game-head"><span>Play while you wait</span><strong>Score: <span id="score">0</span></strong></p>
+      <div class="game-field" id="game-field"></div>
+    </div>
+  </section>
+  <section class="panel wide" id="failed" hidden>
+    <p class="alert" id="fail-msg"></p>
+    <a class="btn btn-primary" href="/tools/video">Try again</a>
+  </section>
+  <section class="panel wide video-wrap" id="result" hidden>
+    <video id="video" controls playsinline preload="metadata"></video>
+    <p class="muted small-note">If the preview does not play, use Download MP4.</p>
+  </section>
+</div>
+<script src="/public/js/game.js"></script>
+<script src="/public/js/video-job.js"></script>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

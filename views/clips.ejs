@@ -1,0 +1,40 @@
+<%- include('partials/shell-start') %>
+<header class="page-head"><h1>Clip finder</h1><span class="muted">Costs 1 credit per video</span></header>
+
+<form id="clip-form" class="panel form wide" novalidate>
+  <label>YouTube link
+    <input type="url" name="url" placeholder="https://www.youtube.com/watch?v=..." required autofocus>
+  </label>
+
+  <fieldset>
+    <legend>How many clips</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="count" value="3"><span>3 clips</span></label>
+      <label class="choice"><input type="radio" name="count" value="5" checked><span>5 clips</span></label>
+      <label class="choice"><input type="radio" name="count" value="8"><span>8 clips</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Clip length</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="length" value="short"><span>15 to 30 sec</span></label>
+      <label class="choice"><input type="radio" name="length" value="medium" checked><span>30 to 60 sec</span></label>
+      <label class="choice"><input type="radio" name="length" value="long"><span>1 to 2 min</span></label>
+    </div>
+  </fieldset>
+
+  <details class="adv">
+    <summary>The video has no captions, or the link fails</summary>
+    <label>Paste the transcript with timestamps
+      <textarea name="transcript" rows="6" placeholder="00:12 Welcome back to the channel&#10;00:18 Today we are talking about..."></textarea>
+      <small>One timestamp per line, like 02:15 or 1:02:15.</small>
+    </label>
+  </details>
+
+  <p id="form-error" class="alert" role="alert" hidden></p>
+  <div><button class="btn btn-primary btn-lg" type="submit" id="submit-btn">Find the best clips</button></div>
+</form>
+<script src="/public/js/clips.js"></script>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

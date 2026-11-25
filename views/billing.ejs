@@ -1,0 +1,28 @@
+<%- include('partials/shell-start') %>
+<header class="page-head"><h1>Billing</h1><span class="muted">Balance: <strong><%= user.credits %> credits</strong></span></header>
+<section class="panel">
+  <h2>Plans</h2>
+  <div class="plan-grid">
+    <% plans.filter(function (p) { return p.price > 0; }).forEach(function (p) { %>
+      <article class="plan <%= p.featured ? 'featured' : '' %>">
+        <h3><%= p.name %></h3>
+        <p class="price">$<%= p.price %></p>
+        <p class="plan-credits"><%= p.credits %> credits</p>
+        <p class="muted"><%= p.note %></p>
+        <button class="btn btn-ghost" type="button" disabled>Checkout opens soon</button>
+      </article>
+    <% }) %>
+  </div>
+</section>
+<section class="panel">
+  <h2>Credit history</h2>
+  <% if (!ledger.length) { %><p class="empty">No credit activity yet.</p><% } else { %>
+    <ul class="rows">
+      <% ledger.forEach(function (l) { %>
+        <li><span><%= l.reason === 'signup' ? 'Welcome credits' : l.reason === 'refund' ? 'Refund' : l.reason === 'purchase' ? 'Purchase' : l.reason === 'admin' ? 'Added by support' : 'Used on ' + l.reason %></span><strong class="<%= l.delta > 0 ? 'pos' : 'neg' %>"><%= l.delta > 0 ? '+' : '' %><%= l.delta %></strong><time><%= new Date(l.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) %></time></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

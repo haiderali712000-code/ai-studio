@@ -1,0 +1,21 @@
+<%- include('partials/head') %>
+<body>
+<%- include('partials/site-header') %>
+<main class="auth">
+  <h1>Check your email</h1>
+  <p class="muted">We sent a 6-digit code to <strong><%= masked %></strong>. It expires in <%= minutes %> minutes.</p>
+  <% if (info) { %><p class="notice" role="status"><%= info %></p><% } %>
+  <% if (error) { %><p class="alert" role="alert"><%= error %></p><% } %>
+  <form method="post" action="/verify" class="form">
+    <label>Verification code
+      <input class="code-input" type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required autofocus>
+    </label>
+    <button class="btn btn-primary btn-block" type="submit">Verify and create account</button>
+  </form>
+  <form method="post" action="/verify/resend" class="resend">
+    <span class="muted">Did not get it? Check spam, or</span>
+    <button class="link-btn" type="submit">send a new code</button>
+  </form>
+  <p class="muted"><a href="/signup">Use a different email</a></p>
+</main>
+<%- include('partials/foot') %>

@@ -1,0 +1,51 @@
+<header class="site-header">
+  <a class="brand" href="/"><span class="mark" aria-hidden="true"></span><%= appName %></a>
+  <nav class="site-nav" aria-label="Main">
+    <% if (user) { %>
+      <a class="credits-chip" href="/billing"><strong><%= user.credits %></strong> credits</a>
+    <% } else { %>
+      <a class="hide-sm" href="/#tools">Tools</a>
+      <a class="hide-sm" href="/#pricing">Pricing</a>
+      <a class="hide-sm" href="/login">Log in</a>
+      <a class="btn btn-primary btn-sm" href="/signup">Start free</a>
+    <% } %>
+    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer" data-nav-toggle><span></span><span></span><span></span></button>
+  </nav>
+</header>
+<div class="scrim" data-nav-close></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer-head">
+    <span class="brand"><span class="mark" aria-hidden="true"></span><%= appName %></span>
+    <button class="drawer-x" type="button" aria-label="Close menu" data-nav-close>&times;</button>
+  </div>
+  <% if (user) { %>
+    <div class="drawer-user">
+      <% if (user.avatar) { %><img src="<%= user.avatar %>" alt="" width="36" height="36" referrerpolicy="no-referrer"><% } else { %><span class="avatar"><%= user.name.charAt(0).toUpperCase() %></span><% } %>
+      <span class="who-name"><%= user.name %></span>
+      <a class="credits-pill" href="/billing"><strong><%= user.credits %></strong> credits</a>
+    </div>
+  <% } %>
+  <nav class="drawer-nav">
+    <a href="/">Home</a>
+    <% if (user) { %><a href="/dashboard">Dashboard</a><% } %>
+    <p class="drawer-label">Tools</p>
+    <% features.forEach(function (f) { %>
+      <% if (f.status === 'live') { %>
+        <a href="<%= f.href %>"><%= f.name %></a>
+      <% } else { %>
+        <span class="soon-item"><%= f.name %> <em>Soon</em></span>
+      <% } %>
+    <% }) %>
+    <p class="drawer-label">Account</p>
+    <% if (user) { %>
+      <a href="/jobs">History</a>
+      <a href="/billing">Billing</a>
+      <% if (user.role === 'admin') { %><a href="/admin">Admin</a><% } %>
+      <form method="post" action="/logout"><button class="link-btn" type="submit">Log out</button></form>
+    <% } else { %>
+      <a href="/#pricing">Pricing</a>
+      <a href="/login">Log in</a>
+      <a href="/signup">Create account</a>
+    <% } %>
+  </nav>
+</aside>

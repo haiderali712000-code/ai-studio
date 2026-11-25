@@ -1,0 +1,15 @@
+<%- include('partials/shell-start') %>
+<header class="page-head"><h1>History</h1><a class="btn btn-primary" href="/tools/clips">New video</a></header>
+<section class="panel">
+  <% if (!jobs.length) { %>
+    <p class="empty">Nothing here yet. Videos you analyse will show up here.</p>
+  <% } else { %>
+    <ul class="rows">
+      <% jobs.forEach(function (j) { %>
+        <li><a href="/jobs/<%= j.id %>"><%= j.title || 'Untitled video' %></a><span class="status <%= j.status %>"><%= j.status %></span><time><%= new Date(j.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></time></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

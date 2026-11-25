@@ -1,0 +1,21 @@
+<%- include('partials/shell-start') %>
+<header class="page-head"><h1>Video downloader</h1><span class="muted"><%= cost ? 'Costs ' + cost + ' credit per download' : 'Free to use' %></span></header>
+
+<form id="dl-form" class="panel form wide" novalidate>
+  <label>Video link
+    <input type="url" name="url" value="<%= prefill %>" placeholder="https://..." required autofocus>
+  </label>
+  <p class="muted small-note">Only download content you own or have permission to use. You are responsible for how you use what you save.</p>
+  <p id="dl-error" class="alert" role="alert" hidden></p>
+  <div><button class="btn btn-primary btn-lg" type="submit" id="dl-btn">Get download links</button></div>
+</form>
+
+<section class="panel wide" id="dl-result" hidden>
+  <h2 id="dl-title">Ready to download</h2>
+  <p class="muted" id="dl-platform"></p>
+  <div class="dl-actions" id="dl-main"></div>
+  <ul class="rows" id="dl-qualities"></ul>
+</section>
+<script src="/public/js/download.js"></script>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

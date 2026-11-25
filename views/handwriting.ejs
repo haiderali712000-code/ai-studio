@@ -1,0 +1,68 @@
+<%- include('partials/shell-start') %>
+<header class="page-head"><h1>Text to handwriting</h1><span class="muted"><%= cost ? 'Costs ' + cost + (cost > 1 ? ' credits' : ' credit') + ' per generation' : 'Free to use' %></span></header>
+
+<form id="hand-form" class="panel form wide" novalidate>
+  <label>Your text
+    <textarea name="text" id="h-text" rows="9" maxlength="<%= maxChars %>" placeholder="Type or paste what should be handwritten. Press Enter for a new line." required autofocus></textarea>
+    <small><span id="h-count">0</span> / <%= maxChars %> characters</small>
+  </label>
+
+  <fieldset>
+    <legend>Language</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="lang" value="" checked><span>English</span></label>
+      <label class="choice"><input type="radio" name="lang" value="urdu"><span>اردو (Urdu)</span></label>
+    </div>
+  </fieldset>
+
+  <label>Handwriting style
+    <select id="h-font"><option>Loading...</option></select>
+  </label>
+
+  <fieldset>
+    <legend>Writing</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="style" value="neat" checked><span>Neat</span></label>
+      <label class="choice"><input type="radio" name="style" value="rough"><span>Rough</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Paper</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="paper" value="ruled" checked><span>Ruled A4</span></label>
+      <label class="choice"><input type="radio" name="paper" value="plain"><span>Plain A4</span></label>
+    </div>
+  </fieldset>
+
+  <label>Ink colour
+    <div class="ink-row">
+      <div class="swatches" id="h-swatches" role="group" aria-label="Ink colours"></div>
+      <input type="color" id="h-color-custom" value="#1a3fa8" aria-label="Custom ink colour">
+    </div>
+  </label>
+
+  <label>Ink size: <output id="h-size-out">34</output>
+    <input type="range" id="h-size" min="16" max="80" step="2" value="34">
+  </label>
+
+  <fieldset>
+    <legend>Download as</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="format" value="png" checked><span>PNG (sharpest)</span></label>
+      <label class="choice"><input type="radio" name="format" value="jpeg"><span>JPEG (smaller)</span></label>
+    </div>
+  </fieldset>
+
+  <p id="h-error" class="alert" role="alert" hidden></p>
+  <div><button class="btn btn-primary btn-lg" type="submit" id="h-btn">Generate handwriting</button></div>
+</form>
+
+<section class="panel" id="h-result" hidden>
+  <div class="panel-head"><h2 id="h-result-title">Your pages</h2><button class="btn btn-ghost btn-sm" type="button" id="h-all" hidden>Download all</button></div>
+  <p class="muted small-note" id="h-note" hidden></p>
+  <div class="hand-pages" id="h-pages"></div>
+</section>
+<script src="/public/js/handwriting.js"></script>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>

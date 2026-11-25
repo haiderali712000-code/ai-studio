@@ -1,0 +1,30 @@
+<%- include('../partials/shell-start') %>
+<header class="page-head"><h1>Admin</h1></header>
+<%- include('_nav') %>
+<section class="panel">
+  <form class="search" method="get" action="/admin/jobs">
+    <select name="status" aria-label="Filter by status">
+      <option value="">All statuses</option>
+      <% ['queued','processing','done','failed'].forEach(function (s) { %><option value="<%= s %>" <%= status === s ? 'selected' : '' %>><%= s %></option><% }) %>
+    </select>
+    <button class="btn btn-ghost" type="submit">Filter</button>
+  </form>
+  <div class="table-wrap">
+  <table class="table">
+    <thead><tr><th>#</th><th>Video</th><th>User</th><th>Status</th><th>Created</th></tr></thead>
+    <tbody>
+    <% jobs.forEach(function (j) { %>
+      <tr>
+        <td><%= j.id %></td>
+        <td><%= j.title || 'Untitled' %><% if (j.error) { %><br><small class="muted"><%= j.error %></small><% } %></td>
+        <td><%= j.email %></td>
+        <td><span class="status <%= j.status %>"><%= j.status %></span></td>
+        <td><%= new Date(j.created_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+  </div>
+</section>
+<%- include('../partials/shell-end') %>
+<%- include('../partials/foot') %>

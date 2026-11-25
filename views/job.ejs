@@ -1,0 +1,37 @@
+<%- include('partials/shell-start') %>
+<header class="page-head">
+  <div>
+    <a class="back" href="/jobs">History</a>
+    <h1 id="job-title"><%= job.title || 'Analysing video' %></h1>
+  </div>
+  <div class="head-actions" id="head-actions" hidden>
+    <button class="btn btn-ghost" type="button" id="csv-btn">Download CSV</button>
+    <% if (downloaderEnabled) { %><a class="btn btn-ghost" href="/tools/download?url=<%= encodeURIComponent('https://youtu.be/' + job.video_id) %>">Download video</a><% } %>
+  </div>
+</header>
+
+<div id="job-root" data-job-id="<%= job.id %>" data-video-id="<%= job.video_id %>">
+  <section class="panel progress" id="progress">
+    <div class="scan-track" aria-hidden="true"><span class="scan-head"></span></div>
+    <p id="stage" class="muted">Starting</p>
+    <div class="game" aria-hidden="true">
+      <p class="game-head"><span>Play while you wait</span><strong>Score: <span id="score">0</span></strong></p>
+      <div class="game-field" id="game-field"></div>
+    </div>
+  </section>
+  <section class="panel" id="failed" hidden>
+    <p class="alert" id="fail-msg"></p>
+    <a class="btn btn-primary" href="/tools/clips">Try another video</a>
+  </section>
+  <section id="results" hidden>
+    <div class="player-wrap">
+      <div class="player"><iframe id="player" title="Clip preview" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      <div class="timeline" id="timeline" role="group" aria-label="Clip positions in the video"></div>
+    </div>
+    <ul class="clip-list" id="clip-list"></ul>
+  </section>
+</div>
+<script src="/public/js/game.js"></script>
+<script src="/public/js/job.js"></script>
+<%- include('partials/shell-end') %>
+<%- include('partials/foot') %>
