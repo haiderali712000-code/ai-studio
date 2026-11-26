@@ -13,8 +13,12 @@ app.set('trust proxy', 1); // Hostinger sits behind a reverse proxy
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
 app.use(helmet({
-  referrerPolicy: { policy: 'strict-origin-when-cross-origin' }, // YouTube embeds need a referrer
+  referrerPolicy: {
+    policy: 'strict-origin-when-cross-origin'
+  },
+  hsts: false, // Temporary: enable after HTTPS setup
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -26,10 +30,11 @@ app.use(helmet({
       frameSrc: ['https://www.youtube.com', 'https://www.youtube-nocookie.com'],
       connectSrc: ["'self'"],
       objectSrc: ["'none'"],
-      upgradeInsecureRequests: config.isProd ? [] : null,
+      upgradeInsecureRequests: null,
     },
   },
 }));
+
 app.use(compression());
 app.use(express.json({ limit: '500kb' }));
 app.use(express.urlencoded({ extended: false, limit: '500kb' }));
