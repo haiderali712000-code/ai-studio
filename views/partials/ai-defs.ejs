@@ -1,0 +1,42 @@
+<svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="iri" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5eead4"/><stop offset=".35" stop-color="#60a5fa"/><stop offset=".7" stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/>
+      <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="18s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="iri2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f472b6"/><stop offset=".35" stop-color="#fbbf24"/><stop offset=".7" stop-color="#60a5fa"/><stop offset="1" stop-color="#5eead4"/>
+      <animateTransform attributeName="gradientTransform" type="rotate" from="360 .5 .5" to="0 .5 .5" dur="22s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="iriU" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="200">
+      <stop offset="0" stop-color="#5eead4"/><stop offset=".35" stop-color="#60a5fa"/><stop offset=".7" stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <radialGradient id="shine" cx=".32" cy=".26" r=".75">
+      <stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".22" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shade" cx=".5" cy=".5" r=".5">
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/>
+    </radialGradient>
+    <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/><stop offset=".28" stop-color="#6d7bb5"/><stop offset=".5" stop-color="#0b1022"/><stop offset=".62" stop-color="#aab6ee"/><stop offset=".72" stop-color="#fff"/><stop offset="1" stop-color="#3a4580"/>
+    </linearGradient>
+    <linearGradient id="faceTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#b8c4ff"/></linearGradient>
+    <linearGradient id="faceL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c8cff"/><stop offset="1" stop-color="#2a2f7a"/></linearGradient>
+    <linearGradient id="faceR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#1e6f8f"/></linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1030"/><stop offset=".45" stop-color="#3b1d6e"/><stop offset=".75" stop-color="#c04e9a"/><stop offset="1" stop-color="#ff9b6a"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#ffb86b"/><stop offset="1" stop-color="#ff6b6b"/>
+    </radialGradient>
+    <clipPath id="landClip"><rect width="200" height="200" rx="18"/></clipPath>
+    <filter id="blur6" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blur14" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="liquid" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".012 .02" numOctaves="2" seed="3" result="n">
+        <animate attributeName="baseFrequency" dur="16s" values=".012 .02;.022 .012;.012 .02" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="26"/>
+    </filter>
+  </defs>
+</svg>

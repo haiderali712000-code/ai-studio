@@ -1,0 +1,4 @@
+Drop your own AI-generated images here and they replace the drawn art on the home page automatically.
+Names: g1.jpg, g2.jpg, g3.jpg, g4.jpg, g5.jpg, g6.jpg, g7.jpg, g8.jpg
+Any size works; wide ones (g3) look best at about 1600x900, tall ones (g6) at 900x1400, the rest square (1200x1200).
+Keep each file under about 400 KB (use jpg or compress them) so the page stays fast.

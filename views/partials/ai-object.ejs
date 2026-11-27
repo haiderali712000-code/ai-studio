@@ -1,0 +1,70 @@
+<% if (kind === 'orb') { %>
+<svg class="obj obj-orb" viewBox="0 0 200 200" aria-hidden="true">
+  <ellipse cx="100" cy="188" rx="52" ry="8" fill="#000" opacity=".45" filter="url(#blur6)"/>
+  <circle cx="100" cy="98" r="80" fill="url(#iri)"/>
+  <circle cx="100" cy="98" r="80" fill="url(#shade)"/>
+  <circle cx="100" cy="98" r="80" fill="url(#shine)"/>
+  <ellipse cx="72" cy="52" rx="26" ry="11" fill="#fff" opacity=".5" transform="rotate(-28 72 52)" filter="url(#blur6)"/>
+  <circle cx="100" cy="98" r="79" fill="none" stroke="#fff" stroke-opacity=".25"/>
+</svg>
+<% } else if (kind === 'armillary') { %>
+<svg class="obj obj-arm" viewBox="0 0 200 200" aria-hidden="true">
+  <g class="spin">
+    <ellipse cx="100" cy="100" rx="88" ry="30" fill="none" stroke="url(#iri)" stroke-width="7"/>
+    <ellipse cx="100" cy="100" rx="88" ry="30" fill="none" stroke="url(#iri2)" stroke-width="7" transform="rotate(60 100 100)"/>
+    <ellipse cx="100" cy="100" rx="88" ry="30" fill="none" stroke="url(#iri)" stroke-width="7" transform="rotate(120 100 100)"/>
+    <circle cx="100" cy="100" r="8" fill="#fff"/>
+  </g>
+</svg>
+<% } else if (kind === 'cube') { %>
+<svg class="obj obj-cube" viewBox="0 0 200 200" aria-hidden="true">
+  <ellipse cx="100" cy="184" rx="56" ry="9" fill="#000" opacity=".45" filter="url(#blur6)"/>
+  <polygon points="100,34 156,66 100,98 44,66" fill="url(#faceTop)" stroke="#fff" stroke-opacity=".45"/>
+  <polygon points="44,66 100,98 100,168 44,136" fill="url(#faceL)" stroke="#fff" stroke-opacity=".3"/>
+  <polygon points="156,66 100,98 100,168 156,136" fill="url(#faceR)" stroke="#fff" stroke-opacity=".3"/>
+  <polyline points="100,98 100,168" stroke="#fff" stroke-opacity=".5" fill="none"/>
+  <polygon points="100,44 140,66 100,88 60,66" fill="#fff" opacity=".35"/>
+</svg>
+<% } else if (kind === 'shard') { %>
+<svg class="obj obj-shard" viewBox="0 0 200 200" aria-hidden="true">
+  <polygon points="70,40 130,40 100,76" fill="url(#iri)" stroke="#fff" stroke-opacity=".5"/>
+  <polygon points="70,40 40,76 100,76" fill="url(#iri2)" opacity=".85" stroke="#fff" stroke-opacity=".4"/>
+  <polygon points="130,40 160,76 100,76" fill="url(#iri)" opacity=".6" stroke="#fff" stroke-opacity=".4"/>
+  <polygon points="40,76 100,76 100,186" fill="url(#iri2)" opacity=".55" stroke="#fff" stroke-opacity=".4"/>
+  <polygon points="100,76 160,76 100,186" fill="url(#iri)" opacity=".4" stroke="#fff" stroke-opacity=".4"/>
+  <polygon points="78,44 118,44 100,66" fill="#fff" opacity=".4"/>
+</svg>
+<% } else if (kind === 'blob') { %>
+<svg class="obj obj-blob" viewBox="0 0 200 200" aria-hidden="true">
+  <path d="M100 18C140 14 182 46 180 96C178 150 140 184 98 182C54 180 18 148 20 100C22 54 58 22 100 18Z" fill="url(#chrome)" filter="url(#liquid)"/>
+  <ellipse cx="72" cy="56" rx="30" ry="12" fill="#fff" opacity=".35" transform="rotate(-24 72 56)" filter="url(#blur6)"/>
+</svg>
+<% } else if (kind === 'wave') { %>
+<svg class="obj obj-wave" viewBox="0 0 200 200" aria-hidden="true">
+  <circle cx="100" cy="100" r="40" fill="#0a0e1c" stroke="url(#iri)" stroke-width="2"/>
+  <circle cx="100" cy="100" r="22" fill="url(#iri)" opacity=".9"/>
+  <% for (var i = 0; i < 36; i++) { var len = 12 + Math.abs(Math.sin(i * 0.75)) * 30 + (i % 4) * 4; %>
+  <g transform="rotate(<%= i * 10 %> 100 100)"><line class="bar" x1="100" y1="54" x2="100" y2="<%= (54 - len).toFixed(1) %>" stroke="url(#iriU)" stroke-width="3.2" stroke-linecap="round" style="animation-delay:<%= -i * 70 %>ms"/></g>
+  <% } %>
+</svg>
+<% } else if (kind === 'landscape') { %>
+<svg class="obj obj-land" viewBox="0 0 200 200" aria-hidden="true">
+  <g clip-path="url(#landClip)">
+    <rect width="200" height="200" fill="url(#sky)"/>
+    <circle cx="100" cy="108" r="64" fill="url(#sun)" opacity=".35" filter="url(#blur14)"/>
+    <circle cx="100" cy="108" r="32" fill="url(#sun)"/>
+    <g fill="#fff"><circle cx="30" cy="30" r="1.2"/><circle cx="62" cy="18" r="1"/><circle cx="150" cy="26" r="1.3"/><circle cx="176" cy="48" r="1"/><circle cx="120" cy="14" r="1"/><circle cx="20" cy="62" r="1"/><circle cx="90" cy="44" r="1"/><circle cx="168" cy="82" r="1"/></g>
+    <path d="M0 140 L38 104 L66 128 L104 90 L150 132 L178 112 L200 130 V200 H0Z" fill="#150b33"/>
+    <path d="M0 162 L46 132 L84 154 L128 126 L200 162 V200 H0Z" fill="#0b0620"/>
+  </g>
+</svg>
+<% } else if (kind === 'flower') { %>
+<svg class="obj obj-flower" viewBox="0 0 200 200" aria-hidden="true">
+  <g class="spin slow" style="mix-blend-mode:screen">
+    <% for (var p = 0; p < 14; p++) { %>
+    <ellipse cx="100" cy="56" rx="14" ry="42" fill="url(#<%= p % 2 ? 'iri2' : 'iri' %>)" opacity=".6" stroke="#fff" stroke-opacity=".3" transform="rotate(<%= p * (360 / 14) %> 100 100)"/>
+    <% } %>
+  </g>
+  <circle cx="100" cy="100" r="10" fill="#fbbf24"/>
+</svg>
+<% } %>

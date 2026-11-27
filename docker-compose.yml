@@ -17,7 +17,13 @@ services:
       DB_PASSWORD: 
 
       JWT_SECRET: 
-      ADMIN_EMAILS: haiderali71200@gmail.com
+      ADMIN_EMAILS: 
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: "465"
+      SMTP_SECURE: "true"
+      SMTP_USER: "YOUR_GMAIL@gmail.com"
+      SMTP_PASS: ""
+      MAIL_FROM: "Cliporra <>"
 
     depends_on:
       mysql:

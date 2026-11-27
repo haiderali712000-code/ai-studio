@@ -1,0 +1,14 @@
+Cliporra redesign pack (additive: it does NOT touch server.js, routes or your other features)
+
+Files to upload to your GitHub repo (keep the same folders; GitHub asks to replace existing files, say yes):
+  views/index.ejs                  (new landing page)
+  views/partials/head.ejs          (loads the new theme + script; was the old head)
+  views/partials/ai-defs.ejs       (new)
+  views/partials/ai-object.ejs     (new)
+  public/css/theme-ai.css          (new)
+  public/js/ai-fx.js               (new)
+  public/img/gallery/_put-images-here.txt   (new, optional notes)
+
+Then redeploy in Docker Manager (a rebuild is needed because files changed).
+To put your own AI images on the home page, add g1.jpg ... g8.jpg to public/img/gallery/.
+To go back: re-upload your old views/partials/head.ejs and views/index.ejs.

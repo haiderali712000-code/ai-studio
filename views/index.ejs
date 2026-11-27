@@ -1,72 +1,97 @@
 <%- include('partials/head') %>
 <body>
+<%- include('partials/ai-defs') %>
 <%- include('partials/site-header') %>
+<%
+  var iconFor = { clips: 'cube', download: 'shard', voice: 'wave', image: 'flower', captions: 'armillary', script: 'blob', repurpose: 'landscape', video: 'orb', handwriting: 'flower' };
+  var samples = [
+    { kind: 'orb', cls: 'big', prompt: 'iridescent glass orb, soft studio light', img: 'g1' },
+    { kind: 'armillary', cls: '', prompt: 'gyroscope of liquid light', img: 'g2' },
+    { kind: 'landscape', cls: 'wide', prompt: 'synthwave mountains at dusk', img: 'g3' },
+    { kind: 'cube', cls: '', prompt: 'translucent cube, cyan and violet', img: 'g4' },
+    { kind: 'blob', cls: '', prompt: 'liquid chrome blob, high contrast', img: 'g5' },
+    { kind: 'flower', cls: 'tall', prompt: 'bioluminescent flower in zero gravity', img: 'g6' },
+    { kind: 'wave', cls: '', prompt: 'voice rendered as a sound sphere', img: 'g7' },
+    { kind: 'shard', cls: '', prompt: 'prism crystal refracting neon', img: 'g8' }
+  ];
+%>
 <main>
-  <section class="hero">
-    <div class="hero-copy">
-      <h1>Paste a YouTube link. Get the moments worth posting.</h1>
-      <p class="lead"><%= appName %> reads the video, ranks the strongest moments and hands you start and end times, a title and an opening hook for each one.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary btn-lg" href="<%= user ? '/tools/clips' : '/signup' %>"><%= user ? 'Open the clip finder' : 'Find my first clips' %></a>
-        <span class="muted">Free credits on sign-up</span>
+  <section class="ai-hero">
+    <div class="ai-hero-copy">
+      <p class="chip"><i></i>New tools every month</p>
+      <h1>Create with AI, from <em>one line.</em></h1>
+      <p class="ai-lead">Turn a YouTube link into the best clips, text into natural voiceovers, and ideas into finished media. One studio, no card needed to start.</p>
+      <div class="ai-cta">
+        <a class="btn btn-primary btn-lg" href="<%= user ? '/dashboard' : '/signup' %>"><%= user ? 'Open your studio' : 'Start free' %></a>
+        <a class="btn btn-ghost btn-lg" href="#tools">See the tools</a>
+      </div>
+      <div class="prompt" aria-hidden="true" data-prompts='["Find the 5 best moments in this 48 minute interview","Read this script in a calm, friendly voice","Turn this idea into a 30 second video"]'>
+        <span class="spark"></span><span class="prompt-text" id="prompt-text">Find the 5 best moments in this 48 minute interview</span><i class="caret"></i>
+        <span class="prompt-go">Generate</span>
       </div>
     </div>
-    <div class="reel" data-tilt="6" data-demo aria-hidden="true">
-      <div class="reel-url"><span id="demo-url">youtube.com/watch?v=7Kq3xR2mLpA</span><i class="caret"></i></div>
-      <div class="reel-top"><span class="reel-title">How I built a business in 90 days</span><span class="reel-len">48:12</span></div>
-      <div class="reel-bar">
-        <span class="scan"></span>
-        <span class="seg" style="--l:6%;--w:3.5%"></span>
-        <span class="seg" style="--l:22%;--w:3%"></span>
-        <span class="seg hot" style="--l:41%;--w:4%"></span>
-        <span class="seg" style="--l:63%;--w:3%"></span>
-        <span class="seg" style="--l:84%;--w:3.5%"></span>
-      </div>
-      <div class="reel-clips">
-        <div class="reel-clip hot"><b>19:48 to 20:34</b><span>The mistake that cost me my first client</span><i data-score="94">94</i></div>
-        <div class="reel-clip"><b>03:02 to 03:41</b><span>Why I stopped answering email before noon</span><i data-score="88">88</i></div>
-        <div class="reel-clip"><b>40:15 to 41:02</b><span>The pricing change that doubled revenue</span><i data-score="81">81</i></div>
-      </div>
+
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="stage-glow"></div>
+      <div class="layer" style="--z:8;left:6%;top:8%;width:88%"><div class="item" style="--d:18s"><%- include('partials/ai-object', { kind: 'armillary' }) %></div></div>
+      <div class="layer" style="--z:22;left:22%;top:20%;width:56%"><div class="item" style="--d:9s"><%- include('partials/ai-object', { kind: 'orb' }) %></div></div>
+      <div class="layer" style="--z:46;left:0%;top:60%;width:30%"><div class="item" style="--d:7s"><%- include('partials/ai-object', { kind: 'cube' }) %></div></div>
+      <div class="layer" style="--z:62;left:72%;top:2%;width:24%"><div class="item" style="--d:8s"><%- include('partials/ai-object', { kind: 'shard' }) %></div></div>
+      <div class="layer" style="--z:34;left:70%;top:62%;width:28%"><div class="item" style="--d:11s"><%- include('partials/ai-object', { kind: 'blob' }) %></div></div>
+      <div class="layer" style="--z:30;left:4%;top:4%;width:20%"><div class="item" style="--d:10s"><%- include('partials/ai-object', { kind: 'wave' }) %></div></div>
+      <div class="scanline"></div>
     </div>
   </section>
 
-  <section class="section" id="how">
-    <h2>From link to clips in three steps</h2>
-    <ol class="steps">
-      <li><h3>Paste the link</h3><p>Any public YouTube video with captions. Pick how many clips and how long they should be.</p></li>
-      <li><h3>We rank the moments</h3><p>The transcript is scored for hooks, stories and standalone value. Intros and filler drop out.</p></li>
-      <li><h3>Preview and publish</h3><p>Play each clip right on the page, copy the timestamps and cut them in your editor.</p></li>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <% for (var m = 0; m < 2; m++) { features.forEach(function (f) { %><span><%= f.name %></span><b></b><% }); } %>
+    </div>
+  </div>
+
+  <section class="ai-section" id="how">
+    <h2 data-reveal>From a single line to <em>finished work</em></h2>
+    <ol class="ai-steps">
+      <li data-reveal><span>1</span><h3>Say what you want</h3><p>Paste a link, drop in text, or describe the result in plain words.</p></li>
+      <li data-reveal><span>2</span><h3>The studio does the heavy lifting</h3><p>Captions are read, moments are ranked, voices are rendered. You watch it happen.</p></li>
+      <li data-reveal><span>3</span><h3>Preview, tweak, download</h3><p>Play it on the page, adjust the options and take the file with you.</p></li>
     </ol>
   </section>
 
-  <section class="section" id="tools">
-    <h2><%= user ? 'Your tools' : 'The studio' %></h2>
-    <p class="muted section-sub">Tap a tool to open it. The rest are on the way.</p>
-    <div class="tool-grid">
-      <% features.forEach(function (f) { %>
-        <% if (f.status === 'live') { %>
-          <a class="tool live" href="<%= f.href %>" data-tilt="3">
-            <h3><%= f.name %></h3>
-            <p><%= f.desc %></p>
-            <span class="tag live"><%= f.cost ? f.cost + (f.cost > 1 ? ' credits' : ' credit') + ' per use' : 'Free' %></span>
-          </a>
-        <% } else { %>
-          <article class="tool soon" data-tilt="3">
-            <h3><%= f.name %></h3>
-            <p><%= f.desc %></p>
-            <span class="tag soon">Coming soon</span>
-          </article>
-        <% } %>
+  <section class="ai-section" id="gallery">
+    <h2 data-reveal>The look of <em>generated art</em></h2>
+    <p class="ai-sub" data-reveal>Visual samples that set the style of the studio.</p>
+    <div class="gallery">
+      <% samples.forEach(function (s) { %>
+        <figure class="g-card <%= s.cls %>" data-reveal data-img="/public/img/gallery/<%= s.img %>.jpg" data-alt="<%= s.prompt %>">
+          <div class="g-art"><%- include('partials/ai-object', { kind: s.kind }) %></div>
+          <figcaption><span>Sample visual</span><%= s.prompt %></figcaption>
+        </figure>
       <% }) %>
     </div>
   </section>
 
-  <section class="section" id="pricing">
-    <h2>Pay for what you use</h2>
-    <p class="muted section-sub">Credits pay for each use of a tool.</p>
+  <section class="ai-section" id="tools">
+    <h2 data-reveal>One studio, <em>many tools</em></h2>
+    <p class="ai-sub" data-reveal>Live today, with more on the way.</p>
+    <div class="ai-tools">
+      <% features.forEach(function (f) { var k = iconFor[f.slug] || 'orb'; %>
+        <article class="ai-tool <%= f.status %>" data-reveal>
+          <div class="ai-tool-art"><%- include('partials/ai-object', { kind: k }) %></div>
+          <h3><%= f.name %></h3>
+          <p><%= f.desc %></p>
+          <span class="tag <%= f.status %>"><%= f.status === 'live' ? 'Live' : 'Coming soon' %></span>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="ai-section" id="pricing">
+    <h2 data-reveal>Pay for what <em>you use</em></h2>
+    <p class="ai-sub" data-reveal>Credits cover every tool. Free credits when you sign up.</p>
     <div class="plan-grid">
       <% plans.forEach(function (p) { %>
-        <article class="plan <%= p.featured ? 'featured' : '' %>" data-tilt="3">
+        <article class="plan <%= p.featured ? 'featured iri-border' : '' %>" data-reveal>
           <h3><%= p.name %></h3>
           <p class="price"><%= p.price ? '$' + p.price : '$0' %></p>
           <p class="plan-credits"><%= p.credits ? p.credits + ' credits' : 'Starter credits' %></p>
@@ -76,7 +101,12 @@
       <% }) %>
     </div>
   </section>
+
+  <section class="ai-cta-band iri-border" data-reveal>
+    <h2>Make something <em>today.</em></h2>
+    <p class="ai-sub">Your first credits are free.</p>
+    <a class="btn btn-primary btn-lg" href="<%= user ? '/dashboard' : '/signup' %>"><%= user ? 'Open your studio' : 'Start free' %></a>
+  </section>
 </main>
-<footer class="site-footer"><span>&copy; <%= new Date().getFullYear() %> <%= appName %></span><span><% if (user) { %><a href="/dashboard">Dashboard</a><% } else { %><a href="/login">Log in</a><% } %></span></footer>
-<script src="/public/js/fx.js"></script>
+<footer class="site-footer"><span>&copy; <%= new Date().getFullYear() %> <%= appName %></span><span><a href="/login">Log in</a></span></footer>
 <%- include('partials/foot') %>
